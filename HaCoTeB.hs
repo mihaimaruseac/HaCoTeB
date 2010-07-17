@@ -33,7 +33,7 @@ createSection text@(header:content)
 -}
 splitSections :: String -> [String] -> [[String]]
 splitSections _ [] = []
-splitSections end (_:content) = section : (splitSections end sections)
+splitSections end (_:content) = section : splitSections end sections
   where
     (section, sections) = span (/= end) content
 
