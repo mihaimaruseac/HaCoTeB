@@ -1,7 +1,5 @@
 module HaCoTeB where
 
-import Debug.Trace
-
 -- Section datatype
 data Section 
   = Anon String
@@ -30,7 +28,7 @@ createSection text@(header:content)
 
 {-
   Split the stream of lines from the file into a list of list of lines.
-  The delimiter is the first argument of the function and will not
+  The delimiter is the first argument of the function and it will not
   appear on the output.
 -}
 splitSections :: String -> [String] -> [[String]]
@@ -38,6 +36,4 @@ splitSections _ [] = []
 splitSections end (_:content) = section : (splitSections end sections)
   where
     (section, sections) = span (/= end) content
-
-test = "terminator\n[header1]\ntext1\nterminator\nanon\n[header2]\ntext2"
 
