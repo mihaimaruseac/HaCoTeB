@@ -4,6 +4,7 @@ module HaCoTeB where
 data Section 
   = Anon String
   | Complete String String
+  | Empty
   deriving Show
 
 -- Section parser
@@ -25,6 +26,7 @@ createSection :: [String] -> Section
 createSection text@(header:content)
   | head header == '[' = Complete header (unlines content)
   | otherwise = Anon (unlines text)
+createSection [] = Empty
 
 {-
   Split the stream of lines from the file into a list of list of lines.
