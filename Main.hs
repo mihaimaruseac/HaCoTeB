@@ -4,4 +4,4 @@ import HaCoTeB
 
 main = do
   s <- readFile "test"
-  print $ getSections s
+  print $ representFileContent s

@@ -1,14 +1,19 @@
 END
-[header1]
-text1
+implicit text section
+[t]
+text section with short type
 END
-anon
+another implicit text section
 END
+[text]
+text section with long type
 END
+[text:name]
+text section with long type and a name
 END
-[header2]
-text2
+[c]
+code
 END
-END
-END
+[code]
+code
 END
