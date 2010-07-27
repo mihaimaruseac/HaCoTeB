@@ -4,4 +4,4 @@ import HaCoTeB
 
 main = do
   s <- readFile "test"
-  print $ representFileContent s
+  writeFile "test.html" $ representFileContent s

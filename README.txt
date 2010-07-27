@@ -65,3 +65,12 @@ Any other form will be considered an error.
 The optional part of a header follows after the closing bracket and
 continues until the end of the line. See each section's description for
 more details.
+
+4. Text section structure
+-------------------------
+
+As of this version, each text section is outputted verbatim in a
+paragraph tag with a justified text-align style.
+
+Right now, there are no extra arguments and section names are ignored.
+

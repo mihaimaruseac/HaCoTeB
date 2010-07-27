@@ -1,5 +1,6 @@
 END
 implicit text section
+END
 [t]
 text section with short type
 END

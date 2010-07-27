@@ -1,48 +1,45 @@
-module HaCoTeB where
+module HaCoTeB (representFileContent) where
 
 import Data.List
-import Debug.Trace
+import Text.Html
 
--- Section datatype
-data Section 
-  = Anon String
-  | Complete String String
-  | Empty
-  deriving (Show, Eq)
+import DataDefs
+import TextParser
+import CodeParser
 
--- Second level parser call
-
+-- This is where the entire job is being done.
 {-
   Parses the file content and returns its HTML representation.
-  Uses representSection and getSections.
   Filters the Empty sections before passing them to the HTML generators.
 -}
-representFileContent :: String -> [String]
-representFileContent = representSections . filter (/= Empty) . getSections
-  where
-    representSections = map representSection
+representFileContent :: String -> String
+representFileContent = 
+  prettyHtml . 
+  concatHtml . 
+  (map representSection) .
+  filter (/= Empty) . 
+  getSections
 
+-- Second level parser call
 {-
   Takes one section and passes it to the corresponding HTML generator to
   obtain the HTML representation. If something is wrong with the header
   throws and exception.
 -}
-representSection :: Section -> String
-representSection (Anon _) = "text"
-representSection (Complete ('[':h) _)
+representSection :: Section -> Html
+representSection (Anon t) = representText t "" ""
+representSection (Complete ('[':h) t)
   | null extra = error ("Incomplete header" ++ " [" ++ h)
-  | headerID `isPrefixOf` "text" = "text" ++ name
-  | headerID `isPrefixOf` "code" = "code" ++ name
+  | headerID `isPrefixOf` "text" = representText t name extra
+  | headerID `isPrefixOf` "code" = representCode t name extra
   | otherwise = error ("Invalid header" ++ " [" ++ h)
     where
       (header_data, extra) = span (/= ']') h
       (headerID, name) = span (/= ':') header_data
 
 -- Section parser
-
 {-
-  Parse the text and return a list of its Section. Uses splitSections and
-  createSection.
+  Parse the text and return a list of its Section. 
 -}
 getSections :: String -> [Section]
 getSections text = map createSection $ splitSections (head ls) ls
@@ -56,8 +53,8 @@ getSections text = map createSection $ splitSections (head ls) ls
 -}
 createSection :: [String] -> Section
 createSection text@(header:content)
-  | head header == '[' = Complete header (unlines content)
-  | otherwise = Anon (unlines text)
+  | head header == '[' = Complete header content
+  | otherwise = Anon text
 createSection [] = Empty
 
 {-
