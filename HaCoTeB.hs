@@ -16,7 +16,7 @@ representFileContent :: String -> String
 representFileContent = 
   prettyHtml . 
   concatHtml . 
-  (map representSection) .
+  map representSection .
   filter (/= Empty) . 
   getSections
 
