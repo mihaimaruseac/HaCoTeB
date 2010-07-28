@@ -1,0 +1,139 @@
+<P STYLE = "text-align: justify;">
+   I am dissatisfied with the Wordpress.com code posting capabilities. All of the
+possible solutions (using the included &lt;code&gt; tag or the included [code]
+plug-in or posting the entire html generated from the code via vim's TOhtml or
+via highlight) were incomplete.
+</P>
+<P STYLE = "text-align: justify;">
+   I wanted something which will allow me to write the post in a text file using
+some syntax (Creole, Markdown, my own) for markup and with the ability to
+introduce source code with a simple paste or some other markups. Afterward,
+the tool will convert the entire file to an HTML which will be used to enter
+the blog post into Wordpress blogs (right now, I don't care about other
+platforms).
+</P>
+<P STYLE = "text-align: justify;">
+   For this purpose, I created HaCoTeB. Even if it is in his infancy, the project
+can be used to make simple posts like this one.
+</P>
+<P STYLE = "text-align: justify;">
+   For example, the following code section lists the Main.hs file (yes, Ha from
+the name means Haskell) of the project.
+</P>
+<CODE STYLE = "text-align: left-align;">
+   module&nbsp;Main&nbsp;where
+   <BR>
+   
+   <BR>
+   import&nbsp;HaCoTeB
+   <BR>
+   
+   <BR>
+   main&nbsp;=&nbsp;do
+   <BR>
+   &nbsp;&nbsp;s&nbsp;&lt;-&nbsp;readFile&nbsp;&quot;test&quot;
+   <BR>
+   &nbsp;&nbsp;writeFile&nbsp;&quot;test.html&quot;&nbsp;$&nbsp;representFileContent&nbsp;s
+</CODE>
+<P STYLE = "text-align: justify;">
+   Because this post is short, I intend to give below the entire source file used
+to generate it.
+</P>
+<CODE STYLE = "text-align: left-align;">
+   	END
+   <BR>
+   	I&nbsp;am&nbsp;dissatisfied&nbsp;with&nbsp;the&nbsp;Wordpress.com&nbsp;code&nbsp;posting&nbsp;capabilities.&nbsp;All&nbsp;of&nbsp;the
+   <BR>
+   	possible&nbsp;solutions&nbsp;(using&nbsp;the&nbsp;included&nbsp;&lt;code&gt;&nbsp;tag&nbsp;or&nbsp;the&nbsp;included&nbsp;[code]
+   <BR>
+   	plug-in&nbsp;or&nbsp;posting&nbsp;the&nbsp;entire&nbsp;html&nbsp;generated&nbsp;from&nbsp;the&nbsp;code&nbsp;via&nbsp;vim's&nbsp;TOhtml&nbsp;or
+   <BR>
+   	via&nbsp;highlight)&nbsp;were&nbsp;incomplete.
+   <BR>
+   	END
+   <BR>
+   	I&nbsp;wanted&nbsp;something&nbsp;which&nbsp;will&nbsp;allow&nbsp;me&nbsp;to&nbsp;write&nbsp;the&nbsp;post&nbsp;in&nbsp;a&nbsp;text&nbsp;file&nbsp;using
+   <BR>
+   	some&nbsp;syntax&nbsp;(Creole,&nbsp;Markdown,&nbsp;my&nbsp;own)&nbsp;for&nbsp;markup&nbsp;and&nbsp;with&nbsp;the&nbsp;ability&nbsp;to
+   <BR>
+   	introduce&nbsp;source&nbsp;code&nbsp;with&nbsp;a&nbsp;simple&nbsp;paste&nbsp;or&nbsp;some&nbsp;other&nbsp;markups.&nbsp;Afterward,
+   <BR>
+   	the&nbsp;tool&nbsp;will&nbsp;convert&nbsp;the&nbsp;entire&nbsp;file&nbsp;to&nbsp;an&nbsp;HTML&nbsp;which&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;enter
+   <BR>
+   	the&nbsp;blog&nbsp;post&nbsp;into&nbsp;Wordpress&nbsp;blogs&nbsp;(right&nbsp;now,&nbsp;I&nbsp;don't&nbsp;care&nbsp;about&nbsp;other
+   <BR>
+   	platforms).
+   <BR>
+   	END
+   <BR>
+   	For&nbsp;this&nbsp;purpose,&nbsp;I&nbsp;created&nbsp;HaCoTeB.&nbsp;Even&nbsp;if&nbsp;it&nbsp;is&nbsp;in&nbsp;his&nbsp;infancy,&nbsp;the&nbsp;project
+   <BR>
+   	can&nbsp;be&nbsp;used&nbsp;to&nbsp;make&nbsp;simple&nbsp;posts&nbsp;like&nbsp;this&nbsp;one.
+   <BR>
+   	END
+   <BR>
+   	For&nbsp;example,&nbsp;the&nbsp;following&nbsp;code&nbsp;section&nbsp;lists&nbsp;the&nbsp;Main.hs&nbsp;file&nbsp;(yes,&nbsp;Ha&nbsp;from
+   <BR>
+   	the&nbsp;name&nbsp;means&nbsp;Haskell)&nbsp;of&nbsp;the&nbsp;project.
+   <BR>
+   	END
+   <BR>
+   	[c]
+   <BR>
+   	module&nbsp;Main&nbsp;where
+   <BR>
+   
+   <BR>
+   	import&nbsp;HaCoTeB
+   <BR>
+   
+   <BR>
+   	main&nbsp;=&nbsp;do
+   <BR>
+   	&nbsp;&nbsp;s&nbsp;&lt;-&nbsp;readFile&nbsp;&quot;test&quot;
+   <BR>
+   	&nbsp;&nbsp;writeFile&nbsp;&quot;test.html&quot;&nbsp;$&nbsp;representFileContent&nbsp;s
+   <BR>
+   	END
+   <BR>
+   	[t]
+   <BR>
+   	Because&nbsp;this&nbsp;post&nbsp;is&nbsp;short,&nbsp;I&nbsp;intend&nbsp;to&nbsp;give&nbsp;below&nbsp;the&nbsp;entire&nbsp;source&nbsp;file&nbsp;used
+   <BR>
+   	to&nbsp;generate&nbsp;it.
+   <BR>
+   	END
+   <BR>
+   	[co]
+   <BR>
+   	END
+   <BR>
+   	[tex]
+   <BR>
+   	As&nbsp;you&nbsp;can&nbsp;see,&nbsp;the&nbsp;sections&nbsp;are&nbsp;divided&nbsp;by&nbsp;a&nbsp;separator&nbsp;(think&nbsp;multipart&nbsp;HTTP
+   <BR>
+   	responses)&nbsp;and&nbsp;their&nbsp;type&nbsp;is&nbsp;given&nbsp;by&nbsp;the&nbsp;first&nbsp;line&nbsp;of&nbsp;the&nbsp;section&nbsp;(if&nbsp;of&nbsp;the
+   <BR>
+   	form&nbsp;[..])&nbsp;or&nbsp;is&nbsp;implicit.&nbsp;What&nbsp;is&nbsp;written&nbsp;in&nbsp;the&nbsp;brackets&nbsp;is&nbsp;any&nbsp;prefix&nbsp;of&nbsp;the
+   <BR>
+   	proper&nbsp;type,&nbsp;allowing&nbsp;for&nbsp;lazy&nbsp;typing&nbsp;:).
+   <BR>
+   	END
+   <BR>
+   	That's&nbsp;all.&nbsp;I&nbsp;will&nbsp;come&nbsp;up&nbsp;with&nbsp;a&nbsp;new&nbsp;version&nbsp;in&nbsp;a&nbsp;few&nbsp;more&nbsp;days,&nbsp;one&nbsp;which
+   <BR>
+   	will&nbsp;have&nbsp;the&nbsp;basic&nbsp;text&nbsp;parsing&nbsp;capabilities&nbsp;(including&nbsp;proper&nbsp;highlighting
+   <BR>
+   	of&nbsp;links&nbsp;and&nbsp;text&nbsp;formatting&nbsp;like&nbsp;bold&nbsp;or&nbsp;alignment).
+</CODE>
+<P STYLE = "text-align: justify;">
+   As you can see, the sections are divided by a separator (think multipart HTTP
+responses) and their type is given by the first line of the section (if of the
+form [..]) or is implicit. What is written in the brackets is any prefix of the
+proper type, allowing for lazy typing :).
+</P>
+<P STYLE = "text-align: justify;">
+   That's all. I will come up with a new version in a few more days, one which
+will have the basic text parsing capabilities (including proper highlighting
+of links and text formatting like bold or alignment).
+</P>

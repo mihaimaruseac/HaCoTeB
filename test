@@ -1,20 +1,86 @@
 END
-implicit text section
+I am dissatisfied with the Wordpress.com code posting capabilities. All of the
+possible solutions (using the included <code> tag or the included [code]
+plug-in or posting the entire html generated from the code via vim's TOhtml or
+via highlight) were incomplete.
 END
-[t]
-text section with short type
+I wanted something which will allow me to write the post in a text file using
+some syntax (Creole, Markdown, my own) for markup and with the ability to
+introduce source code with a simple paste or some other markups. Afterward,
+the tool will convert the entire file to an HTML which will be used to enter
+the blog post into Wordpress blogs (right now, I don't care about other
+platforms).
 END
-another implicit text section
+For this purpose, I created HaCoTeB. Even if it is in his infancy, the project
+can be used to make simple posts like this one.
 END
-[text]
-text section with long type
-END
-[text:name]
-text section with long type and a name
+For example, the following code section lists the Main.hs file (yes, Ha from
+the name means Haskell) of the project.
 END
 [c]
-code
+module Main where
+
+import HaCoTeB
+
+main = do
+  s <- readFile "test"
+  writeFile "test.html" $ representFileContent s
 END
-[code]
-code
+[t]
+Because this post is short, I intend to give below the entire source file used
+to generate it.
 END
+[co]
+	END
+	I am dissatisfied with the Wordpress.com code posting capabilities. All of the
+	possible solutions (using the included <code> tag or the included [code]
+	plug-in or posting the entire html generated from the code via vim's TOhtml or
+	via highlight) were incomplete.
+	END
+	I wanted something which will allow me to write the post in a text file using
+	some syntax (Creole, Markdown, my own) for markup and with the ability to
+	introduce source code with a simple paste or some other markups. Afterward,
+	the tool will convert the entire file to an HTML which will be used to enter
+	the blog post into Wordpress blogs (right now, I don't care about other
+	platforms).
+	END
+	For this purpose, I created HaCoTeB. Even if it is in his infancy, the project
+	can be used to make simple posts like this one.
+	END
+	For example, the following code section lists the Main.hs file (yes, Ha from
+	the name means Haskell) of the project.
+	END
+	[c]
+	module Main where
+
+	import HaCoTeB
+
+	main = do
+	  s <- readFile "test"
+	  writeFile "test.html" $ representFileContent s
+	END
+	[t]
+	Because this post is short, I intend to give below the entire source file used
+	to generate it.
+	END
+	[co]
+	END
+	[tex]
+	As you can see, the sections are divided by a separator (think multipart HTTP
+	responses) and their type is given by the first line of the section (if of the
+	form [..]) or is implicit. What is written in the brackets is any prefix of the
+	proper type, allowing for lazy typing :).
+	END
+	That's all. I will come up with a new version in a few more days, one which
+	will have the basic text parsing capabilities (including proper highlighting
+	of links and text formatting like bold or alignment).
+END
+[tex]
+As you can see, the sections are divided by a separator (think multipart HTTP
+responses) and their type is given by the first line of the section (if of the
+form [..]) or is implicit. What is written in the brackets is any prefix of the
+proper type, allowing for lazy typing :).
+END
+That's all. I will come up with a new version in a few more days, one which
+will have the basic text parsing capabilities (including proper highlighting
+of links and text formatting like bold or alignment).
