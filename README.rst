@@ -48,17 +48,18 @@ For example, this is a valid input file structure::
 B.1.2. Structure of a section
 -----------------------------
 
-Now, there are two types of sections: text and code. However, during the
-parsing phase there are 3 types of them: an empty section (to solve the problem
-caused by multiple end markers), an anonymous section and a complete one. This
-can be changed anytime.
+There are at least two types of sections from the user point of view: text and
+code. However, there are 3, in fact, types of them: an empty section (to solve
+the problem caused by multiple end markers), an anonymous section and a
+complete one.
 
 A complete section contains a header and a content while the anonymous one
 lacks the header (and will be parsed as a text section). The empty section is
 ignored.
 
 The header is the first line in the section, only if it contains text in
-brackets. See next section for header description.
+brackets. The type of the section can only be deduced by looking at the header.
+See next section for header description.
 
 Depending on header's content, the parses determines if the section is either
 text or code. Then, it calls the appropriate next level parser to generate the
@@ -76,10 +77,12 @@ Taking this into account, a file would look like this::
 	[header for contentless section]
 
 B.1.3. Header description
----------------------
+-------------------------
 
-A section header contains text enclosed in brackets. That is, the first
-character of the line should be an opening bracket for that line to be
+**Text starting from here is WIP. Don't take as granted!**
+
+A section header contains text enclosed in brackets. That is, **the first
+character of the line** should be an *opening bracket* for that line to be
 interpreted as a section.
 
 Each type of section header has a common part and one part depending on
@@ -102,7 +105,7 @@ continues until the end of the line. See each section's description for
 more details.
 
 B.1.4. Text section structure
--------------------------
+-----------------------------
 
 As of this version, each text section is outputted verbatim in a
 paragraph tag with a justified text-align style.
