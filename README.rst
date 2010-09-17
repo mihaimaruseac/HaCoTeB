@@ -46,25 +46,34 @@ For example, this is a valid input file structure::
 	marking the end of the file.
 
 B.1.2. Structure of a section
--------------------------
+-----------------------------
 
-WIP
+Now, there are two types of sections: text and code. However, during the
+parsing phase there are 3 types of them: an empty section (to solve the problem
+caused by multiple end markers), an anonymous section and a complete one. This
+can be changed anytime.
 
-There are two types of sections: text and code. However, during the
-parsing phase there are 3 types of them: an empty section (to solve the
-problem caused by multiple end markers), an anonymous section and a
-complete one.
-
-A complete section contains a header and a content while the anonymous
-one lacks the header (and will be parsed as a text section). The empty
-section is ignored.
+A complete section contains a header and a content while the anonymous one
+lacks the header (and will be parsed as a text section). The empty section is
+ignored.
 
 The header is the first line in the section, only if it contains text in
 brackets. See next section for header description.
 
-Depending on header's content, the parses determines if the section is
-either text or code. Then, it calls the appropriate next level parser to
-generate the required html.
+Depending on header's content, the parses determines if the section is either
+text or code. Then, it calls the appropriate next level parser to generate the
+required representation.
+
+Taking this into account, a file would look like this::
+
+	SECTION_MARKER
+	Implicit text section. Following is an empty section.
+	SECTION_MARKER
+	SECTION_MARKER
+	[header]
+	This section has a header, thus it has a type.
+	SECTION_MARKER
+	[header for contentless section]
 
 B.1.3. Header description
 ---------------------
