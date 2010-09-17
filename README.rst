@@ -1,28 +1,54 @@
 Haskell Code and Text Blogging (HaCoTeB)
 ========================================
 
-Haskell Code and Text Blogging (HaCoTeB) is a tool which allows easy
-posting of Wordpress.com blog posts containing text and source code
-without relying to online tools or other plugins.
+A. About
+........
 
-It will transform one single input file into a html fragment which will
-be inserted into the blog editor.
+Haskell Code and Text Blogging (HaCoTeB) started as a tool which allowed easy
+posting of Wordpress.com blog posts containing text and source code without
+relying to online tools or other plugins.
 
-1. Structure of the text file
-----------------------------
+It was intended to transform one single input file into a html fragment to be
+inserted into the blog editor. However, in time, I've decided to allow patches
+which will allow converting the same input file into another format, for
+example into a RST format or a PDF file.
 
-The text file is divided into sections. The section separator is the
-first line in the file. That line will be repeated in the file for each
-end section marker.
+B. Usage
+........
 
-The only place where the section separator (also called terminator or
-marker) is optional is at the end of the file (as it is implied that
-there will be one).
+B.1 The input file
+```````````````````
 
-There is no problem if two consecutive lines are the section separator.
+B.1.1. Structure of the text file
+---------------------------------
 
-2. Structure of a section
+The text file is divided into sections. The section separator is the first line
+in the file. That line will be repeated in the file for each end of section.
+
+The only place where the section separator (also called terminator or marker)
+is optional is at the end of the file (as it is implied that there will be one
+section in every input file).
+
+There is no problem if two consecutive lines are the section separator. Thus,
+you can delete a section and leave the marker there without any problem.
+
+For example, this is a valid input file structure::
+
+	SECTION_MARKER
+	content of section
+	SECTION_MARKER
+	content of second section
+	SECTION_MARKER
+	SECTION_MARKER
+	not how a section was deleted above but it's marker was left in place
+	SECTION_MARKER
+	this section is the last in the file, we can safely forget about
+	marking the end of the file.
+
+B.1.2. Structure of a section
 -------------------------
+
+WIP
 
 There are two types of sections: text and code. However, during the
 parsing phase there are 3 types of them: an empty section (to solve the
@@ -40,7 +66,7 @@ Depending on header's content, the parses determines if the section is
 either text or code. Then, it calls the appropriate next level parser to
 generate the required html.
 
-3. Header description
+B.1.3. Header description
 ---------------------
 
 A section header contains text enclosed in brackets. That is, the first
@@ -66,7 +92,7 @@ The optional part of a header follows after the closing bracket and
 continues until the end of the line. See each section's description for
 more details.
 
-4. Text section structure
+B.1.4. Text section structure
 -------------------------
 
 As of this version, each text section is outputted verbatim in a
@@ -74,3 +100,12 @@ paragraph tag with a justified text-align style.
 
 Right now, there are no extra arguments and section names are ignored.
 
+B.2. The command line
+`````````````````````
+
+WIP
+
+C. Extending HaCoTeB
+....................
+
+WIP
