@@ -79,33 +79,43 @@ Taking this into account, a file would look like this::
 B.1.3. Header description
 -------------------------
 
-**Text starting from here is WIP. Don't take as granted!**
-
 A section header contains text enclosed in brackets. That is, **the first
 character of the line** should be an *opening bracket* for that line to be
 interpreted as a section.
 
-Each type of section header has a common part and one part depending on
-the type of the section. The common part is the one contained between
-the brackets.
+Each type of section header has two parts: a common part which must be the same
+across different types of headers and a part giving options to that section's
+specific parser. The common part is the one contained between the brackets.
 
-That part contains the type of the section and an optional name. If
-there is a name for the section it must be separated from the type by a
-colon character (:). This name can be used to generate local links from
-one section to another. It will be used to create a named anchor at the
-beginning of the section.
+That part contains the type of the section and an optional name. If there is a
+name for the section it must be separated from the type by a colon character
+(:) and must contain only [a-zA-Z0-9]*. This name can be used to generate local
+links from one section to another. It will be used to create a named anchor at
+the beginning of the section.
 
-The type of a section can be any prefix of "text" (for text sections) or
-"code" (for code sections).
+The type of a section can be any prefix of "text" (for text sections) or "code"
+(for code sections). Any other form will be considered an error. When other
+sections will be added, this requirement will change.
 
-Any other form will be considered an error.
+The optional part of a header follows after the closing bracket and continues
+until the end of the line. It will be parsed by the sections' specific parser,
+not by the global one.
 
-The optional part of a header follows after the closing bracket and
-continues until the end of the line. See each section's description for
-more details.
+This is an example of a file seen at this level of detail::
+
+	SECTION_MARKER
+	Implicit text section, unnamed.
+	SECTION_MARKER
+	[te]
+	Text section, anonymous.
+	SECTION_MARKER
+	[cod:first]
+	Code section, named first.
 
 B.1.4. Text section structure
 -----------------------------
+
+**Text starting from here is WIP. Don't take as granted!**
 
 As of this version, each text section is outputted verbatim in a
 paragraph tag with a justified text-align style.

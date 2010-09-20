@@ -24,7 +24,7 @@ representFileContent =
 {-
   Takes one section and passes it to the corresponding HTML generator to
   obtain the HTML representation. If something is wrong with the header
-  throws and exception.
+  throws an exception.
 -}
 representSection :: Section -> Html
 representSection (Anon t) = representText t "" ""
