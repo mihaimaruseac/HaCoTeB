@@ -1,32 +1,42 @@
-module HaCoTeB (representFileContent) where
+module HaCoTeB (representFileContent, fileToHtml) where
 
-import Data.List
-import Text.Html
+import Data.List (isPrefixOf)
 
 import DataDefs
 import TextParser
 import CodeParser
 
+import Debug.Trace
+
+-- Convert to a format.
+{-
+  Converts a file to a HTML String.
+-}
+fileToHtml :: String -> String
+fileToHtml s = unlines $ map f $ representFileContent s
+  where
+    f (Decorated Code a) = "<code>" ++ (g a) ++ "</code>"
+    f a = "<p style='text-align:justify'>" ++ (g a) ++ "</p>"
+    g (Only a) = a
+
 -- This is where the entire job is being done.
 {-
-  Parses the file content and returns its HTML representation.
-  Filters the Empty sections before passing them to the HTML generators.
+  Parses the file content and returns its representation.
+  Filters the Empty sections before passing them to the parsers.
 -}
-representFileContent :: String -> String
-representFileContent = 
-  prettyHtml . 
-  concatHtml . 
+representFileContent :: String -> FileRepr
+representFileContent =
   map representSection .
-  filter (/= Empty) . 
+  filter (/= Empty) .
   getSections
 
 -- Second level parser call
 {-
-  Takes one section and passes it to the corresponding HTML generator to
-  obtain the HTML representation. If something is wrong with the header
-  throws an exception.
+  Takes one section and passes it to the corresponding parser.
+
+  If something is wrong with the header throws an exception.
 -}
-representSection :: Section -> Html
+representSection :: Section -> FilePartRepr
 representSection (Anon t) = representText t "" ""
 representSection (Complete ('[':h) t)
   | null extra = error ("Incomplete header" ++ " [" ++ h)

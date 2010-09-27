@@ -1,6 +1,7 @@
 END
 I am dissatisfied with the Wordpress.com code posting capabilities. All of the
-possible solutions (using the included <code> tag or the included [code]
+possible solutions (using the included <code><code></code> tag or the included
+<code>[code]</code>
 plug-in or posting the entire html generated from the code via vim's TOhtml or
 via highlight) were incomplete.
 END

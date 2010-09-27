@@ -1,14 +1,12 @@
 module TextParser (representText) where
 
-import Text.Html
-
 import DataDefs
 
 {-
-  Represents one section of text as an HTML fragment.
+  Represents one section of text.
 -}
-representText :: Content -> HeaderName -> HeaderExtra -> Html
-representText c _ _ = 
-  p ! [thestyle "text-align: justify;"] <<
-  stringToHtml (init.unlines $ c)
+representText :: Content -> HeaderName -> HeaderExtra -> FilePartRepr
+representText c _ _ = Only (unwords c)
+--  p ! [thestyle "text-align: justify;"] <<
+--  stringToHtml (init.unlines $ c)
 
