@@ -1,23 +1,18 @@
-module HaCoTeB (representFileContent, fileToHtml) where
+module HaCoTeB (convert) where
 
 import Data.List (isPrefixOf)
 
-import DataDefs
-import TextParser
 import CodeParser
-
-import Debug.Trace
+import DataDefs
+import HTMLPrinter
+import TextParser
 
 -- Convert to a format.
 {-
-  Converts a file to a HTML String.
+  Converts a file to the ouptput format, as a String.
 -}
-fileToHtml :: String -> String
-fileToHtml s = unlines $ map f $ representFileContent s
-  where
-    f (Decorated Code a) = "<code>" ++ (g a) ++ "</code>"
-    f a = "<p style='text-align:justify'>" ++ (g a) ++ "</p>"
-    g (Only a) = a
+convert :: String -> String
+convert = printHTML . representFileContent
 
 -- This is where the entire job is being done.
 {-
