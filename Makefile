@@ -1,8 +1,6 @@
 .PHONY: all clean
 
-all: hacoteb
-
-hacoteb:
+all:
 	cd src && make
 	mv src/hacoteb .
 

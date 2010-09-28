@@ -19,8 +19,9 @@ convert = printHTML . representFileContent
   Parses the file content and returns its representation.
   Filters the Empty sections before passing them to the parsers.
 -}
-representFileContent :: String -> FileRepr
-representFileContent =
+representFileContent :: String -> ReprTree
+representFileContent = 
+  SectionNode .
   map representSection .
   filter (/= Empty) .
   getSections
@@ -31,7 +32,7 @@ representFileContent =
 
   If something is wrong with the header throws an exception.
 -}
-representSection :: Section -> FilePartRepr
+representSection :: Section -> ReprTree
 representSection (Anon t) = representText t "" ""
 representSection (Complete ('[':h) t)
   | null extra = error ("Incomplete header" ++ " [" ++ h)

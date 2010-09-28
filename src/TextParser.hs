@@ -5,8 +5,6 @@ import DataDefs
 {-
   Represents one section of text.
 -}
-representText :: Content -> HeaderName -> HeaderExtra -> FilePartRepr
-representText c _ _ = Only (unwords c)
---  p ! [thestyle "text-align: justify;"] <<
---  stringToHtml (init.unlines $ c)
+representText :: Content -> HeaderName -> HeaderExtra -> ReprTree
+representText c _ _ =  TextNode $ map Element c
 
