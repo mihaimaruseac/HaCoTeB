@@ -1,5 +1,7 @@
 module HTMLPrinter (printHTML) where
 
+import Data.List (nub, group)
+
 import DataDefs
 
 import Debug.Trace
@@ -9,11 +11,14 @@ printHTML (SectionNode l) = unlineSons l
 printHTML (TextNode l) = gPARA_START ++ (unwordSons l) ++ gPARA_STOP
 printHTML (CodeNode l) = gCODE_START ++ (unlineSons l) ++ gCODE_STOP
 printHTML (Element a) = a
+printHTML (Node l) = joinSons l
+printHTML Bracket = "[&zwj;"
 printHTML a = trace (show a) "Not implemeneted"
 
 concatSons = gatherFromLeaves concat
 unwordSons = gatherFromLeaves unwords
 unlineSons = gatherFromLeaves unlines
+joinSons = gatherFromLeaves (concat . (map nub) . group . concat)
 
 gatherFromLeaves :: ([String] -> String) -> [ReprTree] -> String
 gatherFromLeaves f = f . (map printHTML)

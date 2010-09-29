@@ -13,6 +13,8 @@ data ReprTree
   | SectionNode [ReprTree] -- a list of sections
   | CodeNode [ReprTree]
   | TextNode [ReprTree]
+  | Node [ReprTree]
+  | Bracket -- a '[' character in the file
   deriving (Show)
 
 -- content of sections

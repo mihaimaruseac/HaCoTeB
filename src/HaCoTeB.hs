@@ -20,7 +20,7 @@ convert = printHTML . representFileContent
   Filters the Empty sections before passing them to the parsers.
 -}
 representFileContent :: String -> ReprTree
-representFileContent = 
+representFileContent =
   SectionNode .
   map representSection .
   filter (/= Empty) .
