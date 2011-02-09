@@ -1,0 +1,10 @@
+This is a small example of the input file. It consists of three paragraphs,
+separated by empty lines. Each paragraph has no decorations, thus, it is only a
+simple text.
+
+The text from each paragraph is plain text, no formatting elements are present.
+Moreover, even if the text is breaked at 80 characters, the result will not
+save this breaking.
+
+The AST for this file will contain three nodes, each of them will contain the
+text as a single line of text.
