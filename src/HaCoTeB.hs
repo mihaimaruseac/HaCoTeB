@@ -8,6 +8,6 @@ module HaCoTeB
   , module HaCoTeB.Splitter
   ) where
 
-import HaCoTeB.Options
+import HaCoTeB.Options (Options(..), options)
 import HaCoTeB.Splitter
 

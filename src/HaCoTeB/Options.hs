@@ -7,8 +7,7 @@ more general CmdArgs data type structure.
 
 {-# LANGUAGE DeriveDataTypeable #-}
 
-module HaCoTeB.Options
-  where
+module HaCoTeB.Options where
 
 import System.Console.CmdArgs
 
