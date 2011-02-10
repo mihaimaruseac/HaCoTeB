@@ -14,5 +14,5 @@ import HaCoTeB
 
 main = do
   Options {..} <- cmdArgs options -- as defined in HaCoTeB.Options
-  print files
+  mapM_ convert files
 
