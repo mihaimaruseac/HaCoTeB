@@ -8,7 +8,7 @@ module HaCoTeB.Splitter where
 Split one text file in sections. Each section is separated by an empty line.
 -}
 split :: String -> [String]
-split = map unlines . span' . lines
+split = map unwords . span' . lines
   where
     span' text = let (s, ss) = span (/= "") text
                  in if ss /= [] then s : span' (tail ss) else s : []

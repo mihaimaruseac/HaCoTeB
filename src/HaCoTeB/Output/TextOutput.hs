@@ -15,9 +15,9 @@ textOutput (AST a) = repr a
 Ignore everything, print only the text.
 -}
 repr :: [Section] -> String
-repr = tail . concatMap repr'
+repr = tail . tail . concatMap repr'
   where
-    repr' (TextSection s) = '\n' : repr'' s
-    repr' (CodeSection s) = '\n' : repr'' s
+    repr' (TextSection s) = '\n' : '\n' : repr'' s
+    repr' (CodeSection s) = '\n' : '\n' : repr'' s
     repr'' (SimpleContent s) = s
 
