@@ -14,11 +14,7 @@ import HaCoTeB.Types
 
 import HaCoTeB.Parse.BasicParse
 
-{-
-This function is still in the IO monad because we allow some parsers to read
-other files.
--}
-parse :: String -> AST
+parse :: String -> Section
 parse = join selectParser
 
 {-
@@ -30,7 +26,7 @@ treated as a command header, put a space in front of it, it will be ignored.
 NOTE: Please change this function when implementing a new parser to enable
 dispatching to your own parser.
 -}
-selectParser :: String -> (String -> AST)
+selectParser :: String -> (String -> Section)
 selectParser ('%':_) = error "No specific parser defined yet"
 selectParser _ = basicParse
 

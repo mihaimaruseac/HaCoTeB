@@ -8,5 +8,6 @@ module HaCoTeB.Parse.BasicParse (basicParse) where
 
 import HaCoTeB.Types
 
-basicParse = Section . SimpleContent
+basicParse :: String -> Section
+basicParse = TextSection . SimpleContent
 

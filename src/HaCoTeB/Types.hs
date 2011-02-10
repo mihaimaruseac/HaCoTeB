@@ -5,8 +5,10 @@ intermediate data structures
 
 module HaCoTeB.Types where
 
-data AST
-  = Section Content
+newtype AST = AST [Section] deriving (Eq, Show, Read)
+
+data Section
+  = TextSection Content
   | CodeSection Content
   deriving (Eq, Show, Read)
 

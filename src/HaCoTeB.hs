@@ -6,17 +6,26 @@ code. It also defines the HaCoTeB pipeline in the convert function.
 
 module HaCoTeB
   ( module HaCoTeB.Options
+  , module HaCoTeB.Output
   , module HaCoTeB.Parse
   , module HaCoTeB.Splitter
+  , module HaCoTeB.Types
   , convert
   ) where
 
 import HaCoTeB.Options (Options(..), options)
+import HaCoTeB.Output (output)
 import HaCoTeB.Parse (parse)
 import HaCoTeB.Splitter (split)
+import HaCoTeB.Types
 
 convert file = do
   s <- readFile file
   let sections = map parse . split $ s
-  print $ sections
+  let ast = combine sections
+  let out = output ast
+  print $ out
+
+combine :: [Section] -> AST
+combine = AST
 
