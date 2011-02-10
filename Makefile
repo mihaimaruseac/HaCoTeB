@@ -1,11 +1,20 @@
-.PHONY: all clean doc
+.PHONY: all clean doc test src run
 
-all:
-	#TODO
+all: src doc
+
+src:
+	@make -s -C src
+
+run:
+	@make -s -C src run
 
 doc:
-	make -C doc
+	@make -s -C doc
 
 clean:
-	make -C doc clean
-	#TODO
+	@make -s -C doc clean
+	@make -s -C src clean
+
+test:
+	@cd test && ./test.sh; cd -
+
