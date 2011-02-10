@@ -6,14 +6,17 @@ code. It also defines the HaCoTeB pipeline in the convert function.
 
 module HaCoTeB
   ( module HaCoTeB.Options
+  , module HaCoTeB.Parse
   , module HaCoTeB.Splitter
   , convert
   ) where
 
 import HaCoTeB.Options (Options(..), options)
-import HaCoTeB.Splitter
+import HaCoTeB.Parse (parse)
+import HaCoTeB.Splitter (split)
 
 convert file = do
   s <- readFile file
-  print $ split s
+  let sections = map parse . split $ s
+  print $ sections
 

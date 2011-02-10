@@ -5,5 +5,10 @@ intermediate data structures
 
 module HaCoTeB.Types where
 
-data HCTBToken = 
+--data HCTBToken = 
+--  deriving (Eq, Show, Read)
+
+data AST
+  = Node
   deriving (Eq, Show, Read)
+
