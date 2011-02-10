@@ -8,4 +8,4 @@ module HaCoTeB.Parse.BasicParse where
 
 import HaCoTeB.Types
 
-basicParse _ = Node
+basicParse = Section . SimpleContent

@@ -5,10 +5,12 @@ intermediate data structures
 
 module HaCoTeB.Types where
 
---data HCTBToken = 
---  deriving (Eq, Show, Read)
-
 data AST
-  = Node
+  = Section Content
+  | CodeSection Content
+  deriving (Eq, Show, Read)
+
+data Content
+  = SimpleContent String
   deriving (Eq, Show, Read)
 
