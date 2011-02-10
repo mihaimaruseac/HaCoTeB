@@ -24,7 +24,7 @@ convert file = do
   let sections = map parse . split $ s
   let ast = combine sections
   let out = output ast
-  print $ out
+  putStr out
 
 combine :: [Section] -> AST
 combine = AST
