@@ -15,14 +15,14 @@ import System.Console.CmdArgs
 Command line arguments as a data type.
 -}
 data Options = Options
-  { files :: [FilePath]
+  { file :: FilePath
   } deriving (Show, Data, Typeable)
 
 {-
 Command line arguments for the entire HaCoTeB (all stages of pipeline).
 -}
 options = Options
-  { files = def &= args &= typ "FILES"
+  { file = def &= argPos 0 &= typFile
   }
   &= summary "HaCoTeB (C) Mihai Maruseac 2011"
   &= help ("Constructs one simple output file from an input file containing"

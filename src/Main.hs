@@ -14,5 +14,5 @@ import HaCoTeB
 
 main = do
   Options {..} <- cmdArgs options -- as defined in HaCoTeB.Options
-  mapM_ convert files
+  convert file
 
