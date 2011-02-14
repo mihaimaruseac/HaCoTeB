@@ -33,10 +33,10 @@ something else.
 -}
 selectParser :: String -> (String -> Section)
 selectParser [] = basicParse -- empty section, if ever
-selectParser sectionText
-  | "%text" == title = error "Not tried"
+selectParser sectionText = case title of
+  "%text" -> error "simpleTextParser"
+  '%':_ -> error "No other parser defined yet"
+  _ -> basicParse
   where
     title = head . lines $ sectionText
-selectParser ('%':_) = error "No other parser defined yet"
-selectParser _ = basicParse
 
