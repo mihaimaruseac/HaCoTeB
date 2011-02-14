@@ -9,6 +9,7 @@ module HaCoTeB.Parse
   ) where
 
 import Control.Monad.Reader (join)
+import Data.List (isPrefixOf)
 
 import HaCoTeB.Types
 
@@ -21,12 +22,21 @@ parse = join selectParser
 Select a parser based on the section command header (text contained between
 the first % and the next % markers, at the beginning of the section. If you
 really want to include a % at the beginning of section which shouldn't be
-treated as a command header, put a space in front of it, it will be ignored.
+treated as a command header, put a space in front of it, it will be ignored,
+if the output generator is consistently written.
 
 NOTE: Please change this function when implementing a new parser to enable
 dispatching to your own parser.
+
+NOTE: The first argument is really the entire section, not the heading or
+something else.
 -}
 selectParser :: String -> (String -> Section)
-selectParser ('%':_) = error "No specific parser defined yet"
+selectParser [] = basicParse -- empty section, if ever
+selectParser sectionText
+  | "%text" == title = error "Not tried"
+  where
+    title = head . lines sectionText
+selectParser ('%':_) = error "No other parser defined yet"
 selectParser _ = basicParse
 

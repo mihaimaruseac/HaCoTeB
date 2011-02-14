@@ -1,11 +1,14 @@
+%text
 This is a small example of paragraph typesetting for HaCoTeB. It supports
 //italic// text, **bold** text and __underlined__ text (--stroked-out-- too).
 However, the real output depends on the selected output printer. Thus, even if
 you have an //italic text// it might end up as being displayed in **boldface**.
 
+%text
 **This is a bolded paragraph, every word here should be bold --and this part
 should be stroked out-- while //this should be in italic// and __this
 underlined__. __--//This part should have all of the attributes//--__.**
 
+%text
 Handling unmatched tags and not properly enclosed ones is not tested via this
 file.

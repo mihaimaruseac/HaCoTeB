@@ -13,6 +13,10 @@ testSimple = do
   if length sections /= 3 
     then putStrLn "\t\tFAILED"
     else putStrLn "\t\tPASSED"
+  putStr "Testing 2.txt:"
+  if length sections /= 3 
+    then putStrLn "\t\tFAILED"
+    else putStrLn "\t\tPASSED"
 
 main = do
   testSimple
