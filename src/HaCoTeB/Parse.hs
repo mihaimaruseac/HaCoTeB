@@ -8,12 +8,14 @@ module HaCoTeB.Parse
   ( parse
   ) where
 
+import Debug.Trace
 import Control.Monad.Reader (join)
 import Data.List (isPrefixOf)
 
 import HaCoTeB.Types
 
 import HaCoTeB.Parse.BasicParse
+import HaCoTeB.Parse.SimpleTextParser
 
 parse :: String -> Section
 parse = join selectParser
@@ -33,10 +35,8 @@ something else.
 -}
 selectParser :: String -> (String -> Section)
 selectParser [] = basicParse -- empty section, if ever
-selectParser sectionText = case title of
+selectParser sectionText = case head . lines $ sectionText of
   "%text" -> error "simpleTextParser"
-  '%':_ -> error "No other parser defined yet"
+  '%':_ -> trace (show$lines$sectionText) $ error "No other parser defined yet"
   _ -> basicParse
-  where
-    title = head . lines $ sectionText
 
