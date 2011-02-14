@@ -36,7 +36,7 @@ selectParser [] = basicParse -- empty section, if ever
 selectParser sectionText
   | "%text" == title = error "Not tried"
   where
-    title = head . lines sectionText
+    title = head . lines $ sectionText
 selectParser ('%':_) = error "No other parser defined yet"
 selectParser _ = basicParse
 

@@ -1,18 +1,18 @@
 .PHONY: all clean run
 
 TARGET = hctb
-TEST = ../test/examples/1.txt
+SOURCES = $(shell find . -type f -name '*.hs')
+HIFILES = $(patsubst %.hs, %.hi, $(SOURCES))
+OFILES = $(patsubst %.hs, %.o, $(SOURCES))
 
 all: $(TARGET)
 
-$(TARGET):
+$(TARGET): $(SOURCES)
 	@ghc --make Main.hs -o $(TARGET)
 
 run: $(TARGET)
-	./$(TARGET) $(TEST)
+	./$(TARGET) ../test/examples/1.txt
+	./$(TARGET) ../test/examples/2.txt
 
 clean:
-	@$(RM) *.hi *.o $(TARGET)
-	@$(RM) HaCoTeB/*.hi HaCoTeB/*.o
-	@$(RM) HaCoTeB/Parse/*.hi HaCoTeB/Parse/*.o
-	@$(RM) HaCoTeB/Output/*.hi HaCoTeB/Output/*.o
+	@$(RM) $(TARGET) $(HIFILES) $(OFILES)
