@@ -8,6 +8,6 @@ module HaCoTeB.Parse.BasicParse (basicParse) where
 
 import HaCoTeB.Types
 
-basicParse :: String -> Section
-basicParse = TextSection . SimpleContent
+basicParse :: [String] -> Section
+basicParse = TextSection . SimpleContent . unwords
 
