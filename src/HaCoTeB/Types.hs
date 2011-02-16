@@ -23,8 +23,8 @@ data Decoration
 data Align
   = Center
   | Full
-  | Right
-  | Left
+  | RightAllign
+  | LeftAllign
   deriving (Eq, Show, Read)
 
 data Content
