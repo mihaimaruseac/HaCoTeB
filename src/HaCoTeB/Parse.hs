@@ -36,7 +36,7 @@ something else.
 selectParser :: [String] -> ([String] -> Section)
 selectParser [] = basicParse -- empty section, if ever
 selectParser sectionText@(h:_) = case h of
-  "%text" -> error "simpleTextParser"
+  "%text" -> simpleTextParser
   '%':_ -> trace (show$sectionText) $ error "No other parser defined yet"
   _ -> basicParse
 
