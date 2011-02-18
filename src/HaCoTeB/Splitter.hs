@@ -11,5 +11,5 @@ split :: String -> [[String]]
 split = span' . lines
   where
     span' text = let (s, ss) = span (/= "") text
-                 in if ss /= [] then s : span' (tail ss) else s : []
+                 in if ss /= [] then s : span' (tail ss) else [s]
 

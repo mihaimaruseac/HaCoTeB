@@ -13,7 +13,7 @@ import HaCoTeB.Types
 import HaCoTeB.Output.TextOutput
 
 output :: AST -> String
-output ast = selectOutput ast
+output = selectOutput
 
 selectOutput :: AST -> String
 selectOutput = textOutput
