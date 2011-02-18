@@ -11,6 +11,7 @@ module HaCoTeB.Parse.SimpleTextParser
   ) where
 
 import Debug.Trace
+import Data.List (delete)
 
 import HaCoTeB.Types
 }
@@ -18,18 +19,18 @@ import HaCoTeB.Types
 -- the monadUserState allows for a monadic parser with user data
 %wrapper "monadUserState"
 
--- $digit = 0-9
--- $alpha = [a-zA-Z]
--- $printable
+-- put here all characters used to select format
+$formatspec = [\*\/_\-]
 
 -- specify tokens and actions here, just like you'd do in Lex and Flex
 tokens :-
 
--- where { \(pos,prev,str) len -> Alex Token } --monadic code
-[^\/]+ { \(_,_,s) l -> token Text [] s }--do return $ Text [] $ take l s  }
--- \/{2} { \(_,_,s) l -> do return $ Text [Italic] $ take l s }
--- <italic> [^\/]+ { \s -> Text [] $ "sss" ++ s }
--- <italic> \/{2} { begin 0 "" }
+[^$formatspec]+ { takeText }
+$formatspec { takeText } -- for single chars (think a * b)
+\/{2} { flipFormat Italic }
+\*{2} { flipFormat Bold }
+_{2} { flipFormat Underline }
+\-{2} { flipFormat Strikeout }
 
 {
 {-
@@ -37,18 +38,29 @@ You can define your own data format here but your main function should ALWAYS
 return a Section, thus a conversion is a MUST.
 
 Although we could have easily produced a HaCoTeB.Types.FormattedContent value
-for our Section, a new data structure was defined because alexEOF (see below)
-must also return a token.
+for our Section, this definition is used to demonstrate conversion between
+formats.
 -}
 data Token
   = Text [Format] String
-  | EOF
   deriving (Eq, Show)
 
 simpleTextParser :: [String] -> Section
-simpleTextParser content = trace (show $ r content) $ TextSection . SimpleContent $ ""
+simpleTextParser input = trace (show $ p content) $ TextSection . SimpleContent $ "asdf"
+  where
+    content = unwords . tail $ input -- remove section header -- TODO in a better way
+    p = either error convert . run
 
-r content = flip runAlex alexMonadScan . unwords . tail $ content
+convert = id
+
+run :: String -> Either String [Token]
+run content = runAlex content $ loop []
+
+loop end = do --alexMonadScan >>= \t -> loop end >>= \e -> return $ t : e
+  tok <- alexMonadScan;
+  case tok of
+    Nothing -> return end
+    Just t -> loop end >>= \e -> return $ t : e
 
 {-
 Because we use monadUserState we have to provide some more definitions
@@ -60,13 +72,34 @@ type AlexUserState = [Format]
 
 alexInitUserState = []
 
-{-
-Remember that this function must also return a token!!
--}
-alexEOF :: Alex Token
-alexEOF = return EOF
---return ([] :: [Token]) --return (Text [] "Done") --undefined --[] -- do nothing
+getUserData :: Alex AlexUserState
+getUserData = Alex $ \s@AlexState{alex_ust=udata} -> Right (s, udata)
 
-f = undefined
+setUserData :: AlexUserState -> Alex ()
+setUserData udata = Alex $ \s -> Right (s{alex_ust=udata}, ())
+
+{-
+Token actions here. All should have the same type. Return Nothing if you want
+to prematurely end the conversion (testing or real demand).
+-}
+takeText :: AlexInput -> Int -> Alex (Maybe Token)
+takeText (_, _, s) l = do
+  f <- getUserData
+  return $ Just $ Text f (take l s)
+
+flipFormat :: Format -> AlexInput -> Int -> Alex (Maybe Token)
+flipFormat format i l = do
+  f <- getUserData
+  if format `elem` f
+    then setUserData $ delete format f
+    else setUserData $ format : f
+  skip i l
+
+{-
+Remember that this function must also return a token!! We have made it to
+return Nothing to enable you to forget about it.
+-}
+alexEOF :: Alex (Maybe Token)
+alexEOF = return Nothing
 }
 
