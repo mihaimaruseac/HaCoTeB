@@ -120,6 +120,25 @@ alexMonadScan = do
         alexSetInput inp'
         action inp len
 
+--- convenience functions
+-- alexEOF :: Alex (Maybe token)
+alexEOF = return Nothing
+
+getUserData :: Alex AlexUserState
+getUserData = Alex $ \s@AlexState{alex_ust=udata} -> Right (s, udata)
+
+setUserData :: AlexUserState -> Alex ()
+setUserData udata = Alex $ \s -> Right (s{alex_ust=udata}, ())
+
+-- runAlexStr :: String -> Either String [token]
+runAlexStr content = runAlex content $ loopAlexStr []
+
+loopAlexStr end = do
+  tok <- alexMonadScan;
+  case tok of
+    Nothing -> return end
+    Just t -> loopAlexStr end >>= \e -> return $ t : e
+
 -- -----------------------------------------------------------------------------
 -- Useful token actions
 

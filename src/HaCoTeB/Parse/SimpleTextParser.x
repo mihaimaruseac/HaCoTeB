@@ -16,7 +16,9 @@ import Data.List (delete)
 import HaCoTeB.Types
 }
 
--- the monadUserState allows for a monadic parser with user data
+-- Use the HaCoTeB wrapper for best results regarding needed code vs
+-- boilerplate code ratio. It allows for a monadic parser with user data, see
+-- below on how to gather the data from the state (also, see documentation).
 %wrapper "HaCoTeB"
 
 -- put here all characters used to select format
@@ -49,38 +51,21 @@ simpleTextParser :: [String] -> Section
 simpleTextParser input = trace (show $ p content) $ TextSection . SimpleContent $ "asdf"
   where
     content = unwords . tail $ input -- remove section header -- TODO in a better way
-    p = either error convert . run
+    p = either error convert . runAlexStr
 
 convert = id
 
-run :: String -> Either String [Token]
-run content = runAlex content $ loop []
-
-loop end = do
-  tok <- alexMonadScan;
-  case tok of
-    Nothing -> return end
-    Just t -> loop end >>= \e -> return $ t : e
-
 {-
-Because we use monadUserState we have to provide some more definitions
-here. We'll start with the data in user state (AlexUserState and
-alexInitUserState) and will end with action to be taken when EOF is matched
-(alexEOF). All of them must be defined before the compilation can succeed.
+Define user state structure and initial value.
 -}
 type AlexUserState = [Format]
 
 alexInitUserState = []
 
-getUserData :: Alex AlexUserState
-getUserData = Alex $ \s@AlexState{alex_ust=udata} -> Right (s, udata)
-
-setUserData :: AlexUserState -> Alex ()
-setUserData udata = Alex $ \s -> Right (s{alex_ust=udata}, ())
-
 {-
-Token actions here. All should have the same type. Return Nothing if you want
-to prematurely end the conversion (testing or real demand).
+Token actions here. All should have the same type: Alex (Maybe Token), for
+your specification of Token. Return Nothing if you want to prematurely end the
+conversion (testing or real demand).
 -}
 takeText :: AlexInput -> Int -> Alex (Maybe Token)
 takeText (_, _, s) l = do
@@ -94,12 +79,5 @@ flipFormat format i l = do
     then setUserData $ delete format f
     else setUserData $ format : f
   skip i l
-
-{-
-Remember that this function must also return a token!! We have made it to
-return Nothing to enable you to forget about it.
--}
-alexEOF :: Alex (Maybe Token)
-alexEOF = return Nothing
 }
 
