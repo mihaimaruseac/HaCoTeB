@@ -17,7 +17,7 @@ import HaCoTeB.Types
 }
 
 -- the monadUserState allows for a monadic parser with user data
-%wrapper "monadUserState"
+%wrapper "HaCoTeB"
 
 -- put here all characters used to select format
 $formatspec = [\*\/_\-]
@@ -56,7 +56,7 @@ convert = id
 run :: String -> Either String [Token]
 run content = runAlex content $ loop []
 
-loop end = do --alexMonadScan >>= \t -> loop end >>= \e -> return $ t : e
+loop end = do
   tok <- alexMonadScan;
   case tok of
     Nothing -> return end

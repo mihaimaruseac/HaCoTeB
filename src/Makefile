@@ -1,9 +1,13 @@
 .PHONY: all clean run
 
 TARGET = hctb
+HaCoTeBDIR = HaCoTeB
+PARSEDIR = $(HaCoTeBDIR)/Parse
+
 ALEXSOURCES = $(shell find . -type f -name '*.x')
 ALEX_GEN_SOURCES = $(patsubst %.x, %.hs, $(ALEXSOURCES))
-ALEX = alex
+ALEX = alex -t $(PARSEDIR)
+
 SOURCES = $(shell find . -type f -name '*.hs')
 HIFILES = $(patsubst %.hs, %.hi, $(SOURCES))
 OFILES = $(patsubst %.hs, %.o, $(SOURCES))
