@@ -20,4 +20,6 @@ repr = tail . tail . concatMap repr'
     repr' (TextSection s) = '\n' : '\n' : repr'' s
     repr' (CodeSection s) = '\n' : '\n' : repr'' s
     repr'' (SimpleContent s) = s
+    repr'' (FormattedContent f s) = s
+    repr'' (MixedContent s) = concatMap repr'' s
 

@@ -48,12 +48,12 @@ data Token
   deriving (Eq, Show)
 
 simpleTextParser :: [String] -> Section
-simpleTextParser input = trace (show $ p content) $ TextSection . SimpleContent $ "asdf"
+simpleTextParser input = either error convert . runAlexStr $ content
   where
     content = unwords . tail $ input -- remove section header -- TODO in a better way
-    p = either error convert . runAlexStr
 
-convert = id
+convert :: [Token] -> Section
+convert = TextSection . MixedContent . map (\(Text f s) -> FormattedContent f s)
 
 {-
 Define user state structure and initial value.
